@@ -1,0 +1,48 @@
+DataProducts
+========================================================
+author: Ammar Islam
+date: 
+
+Developing Data Products Project - LEGO Sets Visualization  
+==========================================================
+
+This Shiny App is for searching and visulizating LEGO Sets information.    
+The dataset is from [Rebrickable.com](http://rebrickable.com/) that contains the basic information of each set (set id, year, number of pieces, theme, set name).  
+Data Source: http://rebrickable.com/downloads  
+
+**Note**: Since I didn't use the API to collect data, the current data might not be 100% accurate.  
+
+It can also be found here: https://ammar760.shinyapps.io/project/ 
+
+
+Summary of the data
+========================================================
+
+```{r}
+data <- read.csv(file = "data/sets.csv")
+
+summary(data)
+
+```
+
+Number of Pieces per year
+========================================================
+
+```{r, echo=FALSE}
+library(data.table)
+data <- fread("./data/sets.csv")
+setnames(data, "t1", "theme")
+setnames(data, "descr", "name")
+setnames(data, "set_id", "setId")
+
+years <- sort(unique(data$year))
+themes <- sort(unique(data$theme))
+
+plot(data$year, data$pieces, xlab = "Years", ylab = "Pieces", col = "blue")
+
+```
+
+Use of Shiny APP
+=========================================
+
+This Shiny App is for searching and visulizating LEGO Sets information from year 1950 to 2015. The total number of set records is 10482 and that of theme records is 102. The dataset is from Rebrickable.com that contains the basic information of each set (set id, year, number of pieces, theme, set name).
